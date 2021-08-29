@@ -10,23 +10,23 @@ services:
       # - MONGO_INITDB_ROOT_USERNAME=max
     env_file: 
       - ./env/mongo.env
-  # backend:
-  #   build: ./backend
-  #   # build:
-  #   #   context: ./backend
-  #   #   dockerfile: Dockerfile
-  #   #   args:
-  #   #     some-arg: 1
-  #   ports:
-  #     - '80:80'
-  #   volumes: 
-  #     - logs:/app/logs
-  #     - ./backend:/app
-  #     - /app/node_modules
-  #   env_file: 
-  #     - ./env/backend.env
-  #   depends_on:
-  #     - mongodb
+  backend:
+    build: ./backend
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     some-arg: 1
+    ports:
+      - '80:80'
+    volumes: 
+      - logs:/app/logs
+      - ./backend:/app #bind volume for dev
+      - /app/node_modules #anonymous volume for node modules inside container
+    env_file: 
+      - ./env/backend.env
+    depends_on:
+      - mongodb
   # frontend:
   #   build: ./frontend
   #   ports: 
@@ -40,4 +40,4 @@ services:
 
 volumes: 
   data:
-  # logs:
+  logs:
